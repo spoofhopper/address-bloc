@@ -2,6 +2,7 @@ require_relative '../models/address_book'
 
 RSpec.describe AddressBook do
   let(:book) { AddressBook.new }
+  let(:book2) { AddressBook.new }
 
   def check_entry(entry, expected_name, expected_number, expected_email)
     expect(entry.name).to eq expected_name
@@ -12,9 +13,6 @@ RSpec.describe AddressBook do
   describe "attributes" do
     it "responds to entries" do
       expect(book).to respond_to(:entries)
-      book.import_from_csv("entries.csv")
-      entry_one = book.entries[0]
-      check_entry(entry_one, "Bill", "555-555-4854", "bill@blocmail.com")
     end
 
     it "initializes entries as an array" do
@@ -47,6 +45,10 @@ RSpec.describe AddressBook do
       book.import_from_csv("entries.csv")
       book_size = book.entries.size
       expect(book_size).to eq 5
+
+      book2.import_from_csv("entries_2.csv")
+      book2_size = book2.entries.size
+      expect(book2_size).to eq 3
     end
 
     it "imports the 1st entry" do
@@ -81,6 +83,27 @@ RSpec.describe AddressBook do
     # Check the fifth entry
     entry_five = book.entries[4]
     check_entry(entry_five, "Sussie", "555-555-2036", "sussie@blocmail.com")
+  end
+
+  it "2: imports the 1st entry" do
+    book.import_from_csv("entries_2.csv")
+    # Check the fifth entry
+    entry_one = book.entries[0]
+    check_entry(entry_one, "a", "123-456-7890", "a@gmail.com")
+  end
+
+  it "2: imports the 2nd entry" do
+    book.import_from_csv("entries_2.csv")
+    # Check the fifth entry
+    entry_two = book.entries[1]
+    check_entry(entry_two, "b", "111-222-3333", "b@gmail.com")
+  end
+
+  it "2: imports the 3rd entry" do
+    book.import_from_csv("entries_2.csv")
+    # Check the fifth entry
+    entry_three = book.entries[2]
+    check_entry(entry_three, "c", "000-000-9999", "c@gmail.com")
   end
 
   end
