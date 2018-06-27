@@ -175,7 +175,9 @@ class MenuController
     case selection
       when "n"
         system "clear"
-        nuke
+        address_book.nuke
+        puts "Address book has been wiped"
+        main_menu
       when "m"
         system "clear"
         main_menu

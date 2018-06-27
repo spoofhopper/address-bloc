@@ -131,8 +131,23 @@ RSpec.describe AddressBook do
       entry = book.binary_search("Billy")
       expect(entry).to be_nil
     end
-
   end
 
+describe "#nuke" do
+  it "deletes all entries in AddressBook" do
+    book.import_from_csv("entries.csv")
+    book_size = book.entries.size
+    expect(book_size).to eq 5
+    book.nuke
+    book_size = book.entries.size
+    expect(book_size).to eq 0
+  end
+
+
+
+
+
+
+end
 
 end
